@@ -18,7 +18,7 @@ button{padding:9px 14px;border:0;border-radius:8px;font-weight:bold;cursor:point
 <h1>🌾 CropDust Farm</h1>
 <div id="info"></div>
 <canvas id="c" width="900" height="560"></canvas>
-<p>WASD / Arrow Keys = drive • P = plant • H = harvest • S = sell • R = reset</p>
+<p>WASD / Arrow Keys = drive • P = plant • H = harvest • F = sell • R = reset</p>
 </div>
 <script>
 const c=document.getElementById("c"),x=c.getContext("2d"), info=document.getElementById("info");
@@ -46,15 +46,6 @@ function openShop(){
     if(choice==="1" && money>=50){money-=50;seed+=10}
     if(choice==="2" && money>=100){money-=100;seed+=25}
     setTimeout(()=>{shopCooldown=false},10000);
- }
-}
-
-   }
-
-
-
-
-
 function update(){
  let sp=3;
  if(keys.w||keys.arrowup)tractor.y-=sp;
