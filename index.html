@@ -38,7 +38,6 @@ function harvest(){
 function sell(){
  if(Math.hypot(tractor.x-115,tractor.y-105)<65&&crop){money+=crop*35;crop=0}
 }
-function update()
 function openShop(){ 
  if(Math.hypot(tractor.x-117,tractor.y-100)<100){
     let choice=prompt("SHOP\n\n1 = Buy 10 seeds for $50\n2 = Buy 25 seeds for $100\n\nCancel = Leave");
