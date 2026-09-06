@@ -40,7 +40,7 @@ function plant(){
 }
 function harvest(){
  if(vehicle!=="combine")return;
- fields.forEach(f=>{if(near(f)&&f.state==3){f.state=0;f.age=0;crop+=2}})
+ fields.forEach(f=>{if(f.state==1||f.state==2){f.age+=.015;if(f.age>2)f.state=3}});
 }
 function sell(){
  if(Math.hypot(tractor.x-115,tractor.y-105)<65&&crop){money+=crop*35;crop=0}
@@ -57,9 +57,7 @@ function openShop(){
    let f=fields.find(f=>!f.unlocked);
    if(f&&money>=1000){money-=1000;f.unlocked=true}
   }
-  setTimeout(()=>{shopCooldown=false},10000);
- }
-}
+  setTimeout(()=>{shopCooldown=false},10000) 
   }
 }
 function update(){
@@ -117,11 +115,29 @@ function draw(){
  x.fillStyle="#e6c84f";x.fillRect(45,195,145,55);x.fillStyle="#222";x.fillText("SELL CROPS",67,228);
  // fields
  fields.forEach(f=>{
-   x.fillStyle="#6d482d";x.fillRect(f.x-38,f.y-38,76,76);
+   x.fillStyle=f.unlocked?"#6d482d":"#444";
+   x.fillRect(f.x-38,f.y-38,76,76);
    x.strokeStyle="#4b301f";x.strokeRect(f.x-38,f.y-38,76,76);
-   if(f.state==1){x.fillStyle="#6fb63d";x.font="30px Arial";x.fillText("🌱",f.x-16,f.y+12)}
-   if(f.state==2){x.fillStyle="#4d9634";x.font="34px Arial";x.fillText("🌿",f.x-18,f.y+13)}
-   if(f.state==3){x.fillStyle="#e3bd38";x.font="35px Arial";x.fillText("🌾",f.x-18,f.y+13)}
+
+   if(!f.unlocked){
+      x.fillStyle="white";
+      x.font="bold 16px Arial";
+      x.fillText("$1000",f.x-25,f.y+6);
+   }
+
+   if(f.unlocked&&f.state==1){
+      x.fillStyle="#6fb63d";x.font="30px Arial";
+      x.fillText("🌱",f.x-16,f.y+12)
+   }
+   if(f.unlocked&&f.state==2){
+      x.fillStyle="#4d9634";x.font="34px Arial";
+      x.fillText("🌿",f.x-18,f.y+13)
+   }
+   if(f.unlocked&&f.state==3){
+      x.fillStyle="#e3bd38";x.font="35px Arial";
+      x.fillText("🌾",f.x-18,f.y+13)
+   }
+});
 });    
 // combine
 x.save();
