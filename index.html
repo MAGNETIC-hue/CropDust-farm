@@ -114,9 +114,7 @@ function draw(){
  // sell zone
  x.fillStyle="#e6c84f";x.fillRect(45,195,145,55);x.fillStyle="#222";x.fillText("SELL CROPS",67,228);
  // fields
- fields.forEach(f=>{if(f.state==1||f.state==2){f.age+=.015;if(f.age>2)f.state=3}});
-});
-});    
+ fields.forEach(f=>{if(f.state==1||f.state==2){f.age+=.015;if(f.age>2)f.state=3}});  
 // combine
 x.save();
 x.translate(combine.x,combine.y);
