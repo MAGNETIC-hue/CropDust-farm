@@ -44,7 +44,14 @@ function openShop(){
     let choice=prompt("SHOP\n\n1 = Buy 10 seeds for $50\n2 = Buy 25 seeds for $100\n\nCancel = Leave");
     if(choice==="1" && money>=50){money-=50;seed+=10}
     if(choice==="2" && money>=100){money-=100;seed+=25}
-  }
+
+   }
+
+}
+
+
+
+function update(){
  let sp=3;
  if(keys.w||keys.arrowup)tractor.y-=sp;
  openShop();
