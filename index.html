@@ -26,8 +26,8 @@ button{padding:9px 14px;border:0;border-radius:8px;font-weight:bold;cursor:point
 <script>
 const c=document.getElementById("c"),x=c.getContext("2d"), info=document.getElementById("info");
  let keys={}, money=500, seed=10, crop=0, tractor={x:150,y:455}, combine={x:220,y:455}, fields=[], shopCooldown=false, vehicle="tractor", mapOpen=false
-const worldW=1600,worldH=1400;
-for(let r=0;r<10;r++)for(let q=0;q<5;q++)fields.push({x:500+q*150,y:120+r*120,state:0,age:0,unlocked:r<3});
+const worldW=1800,worldH=1700;
+for(let r=0;r<10;r++)for(let q=0;q<5;q++)fields.push({x:520+q*160,y:130+r*150,state:0,age:0,unlocked:r<3});
 addEventListener("keydown",e=>{keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()=="p")plant();if(e.key.toLowerCase()=="h")harvest();if(e.key.toLowerCase()=="s")sell();if(e.key.toLowerCase()=="m")mapOpen=!mapOpen;if(e.key.toLowerCase()=="r")location.reload()});
 addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
 function near(f){
@@ -73,12 +73,21 @@ if(!mapOpen){
  v.x=Math.max(25,Math.min(worldW-25,v.x));
 v.y=Math.max(25,Math.min(worldH-25,v.y));
 }
- v.x=Math.max(25,Math.min(worldW-25,v.x));
-v.y=Math.max(25,Math.min(worldH-25,v.y));
- fields.forEach(f=>{
-   x.fillStyle=f.unlocked?"#6d482d":"#444";
-   x.fillRect(f.x-38,f.y-38,76,76);
-   x.strokeStyle="#4b301f";x.strokeRect(f.x-38,f.y-38,76,76);
+fields.forEach(f=>{
+  x.fillStyle=f.unlocked?"#6d482d":"#444";
+  x.fillRect(f.x-70,f.y-70,140,140);
+
+  x.strokeStyle="#4b301f";
+  x.strokeRect(f.x-70,f.y-70,140,140);
+
+  if(!f.unlocked){
+    x.fillStyle="white";
+    x.font="bold 16px Arial";
+    x.fillText("$1000",f.x-25,f.y+6);
+  }
+
+  if(f.unlocked&&f.state==1){
+    x.fillStyle="#6fb 
 
    if(!f.unlocked){
       x.fillStyle="white";
@@ -120,6 +129,37 @@ function draw(){
  // sell zone
  x.fillStyle="#e6c84f";x.fillRect(45,195,145,55);x.fillStyle="#222";x.fillText("SELL CROPS",67,228);
  // fields
+ fields.forEach(f=>{
+  x.fillStyle=f.unlocked?"#6d482d":"#444";
+  x.fillRect(f.x-70,f.y-70,140,140);
+
+  x.strokeStyle="#4b301f";
+  x.strokeRect(f.x-70,f.y-70,140,140);
+
+  if(!f.unlocked){
+    x.fillStyle="white";
+    x.font="bold 16px Arial";
+    x.fillText("$1000",f.x-25,f.y+6);
+  }
+
+  if(f.unlocked&&f.state==1){
+    x.fillStyle="#6fb63d";
+    x.font="30px Arial";
+    x.fillText("🌱",f.x-16,f.y+12);
+  }
+
+  if(f.unlocked&&f.state==2){
+    x.fillStyle="#4d9634";
+    x.font="34px Arial";
+    x.fillText("🌿",f.x-18,f.y+13);
+  }
+
+  if(f.unlocked&&f.state==3){
+    x.fillStyle="#e3bd38";
+    x.font="35px Arial";
+    x.fillText("🌾",f.x-18,f.y+13);
+  }
+});
  fields.forEach(f=>{if(f.state==1||f.state==2){f.age+=.015;if(f.age>2)f.state=3}});  
 // combine
 x.save();
@@ -166,7 +206,8 @@ x.restore();
  x.fillStyle="#d92";x.fillRect(-25,-15,50,30);x.fillStyle="#8b5a2b";x.fillRect(0,-28,25,18);
  x.fillStyle="#111";x.beginPath();x.arc(-17,20,11,0,7);x.fill();x.beginPath();x.arc(17,20,11,0,7);x.fill();
  x.restore();
- if(mapOpen){
+x.restore();
+if(mapOpen){
  x.fillStyle="rgba(0,0,0,.85)";x.fillRect(0,0,900,560);
  x.fillStyle="#78b94b";x.fillRect(70,45,760,470);
  x.fillStyle="#d2b477";x.fillRect(70,280,760,45);x.fillRect(305,45,45,470);
