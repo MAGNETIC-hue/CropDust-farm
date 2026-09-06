@@ -26,12 +26,13 @@ button{padding:9px 14px;border:0;border-radius:8px;font-weight:bold;cursor:point
 <script>
 const c=document.getElementById("c"),x=c.getContext("2d"), info=document.getElementById("info");
  let keys={}, money=500, seed=10, crop=0, tractor={x:150,y:455}, combine={x:220,y:455}, fields=[], shopCooldown=false, vehicle="tractor", mapOpen=false
-for(let r=0;r<10;r++)for(let q=0;q<5;q++)fields.push({x:380+q*75,y:45+r*50,state:0,age:0,unlocked:r<3});
+const worldW=1600,worldH=1400;
+for(let r=0;r<10;r++)for(let q=0;q<5;q++)fields.push({x:500+q*150,y:120+r*120,state:0,age:0,unlocked:r<3});
 addEventListener("keydown",e=>{keys[e.key.toLowerCase()]=true;if(e.key.toLowerCase()=="p")plant();if(e.key.toLowerCase()=="h")harvest();if(e.key.toLowerCase()=="s")sell();if(e.key.toLowerCase()=="m")mapOpen=!mapOpen;if(e.key.toLowerCase()=="r")location.reload()});
 addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
 function near(f){
  let v=vehicle==="tractor"?tractor:combine;
- return f.unlocked&&Math.hypot(v.x-f.x,v.y-f.y)<35
+ return f.unlocked&&Math.hypot(v.x-f.x,v.y-f.y)<65
 }
 function plant(){
  if(vehicle!=="tractor")return;
@@ -69,11 +70,11 @@ if(!mapOpen){
  if(keys.s||keys.arrowdown)v.y+=sp;
  if(keys.a||keys.arrowleft)v.x-=sp;
  if(keys.d||keys.arrowright)v.x+=sp;
- v.x=Math.max(25,Math.min(875,v.x));
- v.y=Math.max(25,Math.min(535,v.y));
+ v.x=Math.max(25,Math.min(worldW-25,v.x));
+v.y=Math.max(25,Math.min(worldH-25,v.y));
 }
- v.x=Math.max(25,Math.min(875,v.x));
-v.y=Math.max(25,Math.min(535,v.y));
+ v.x=Math.max(25,Math.min(worldW-25,v.x));
+v.y=Math.max(25,Math.min(worldH-25,v.y));
  fields.forEach(f=>{
    x.fillStyle=f.unlocked?"#6d482d":"#444";
    x.fillRect(f.x-38,f.y-38,76,76);
@@ -103,10 +104,15 @@ v.y=Math.max(25,Math.min(535,v.y));
 }
 function draw(){
  x.clearRect(0,0,900,560);
+ let v=vehicle==="tractor"?tractor:combine;
+ let camX=Math.max(0,Math.min(worldW-900,v.x-450));
+ let camY=Math.max(0,Math.min(worldH-560,v.y-280));
+ x.save();
+ x.translate(-camX,-camY);
  // grass
- x.fillStyle="#78b94b";x.fillRect(0,0,900,560);
+ x.fillStyle="#78b94b";x.fillRect(0,0,worldW,worldH);
  // paths
- x.fillStyle="#d2b477";x.fillRect(0,275,900,55);x.fillRect(280,0,55,560);
+ x.fillStyle="#d2b477";x.fillRect(0,275,worldW,55);x.fillRect(280,0,55,worldH);
  // house
  x.fillStyle="#b85c45";x.fillRect(55,55,125,90);x.fillStyle="#70402f";
  x.beginPath();x.moveTo(40,55);x.lineTo(117,15);x.lineTo(195,55);x.closePath();x.fill();
