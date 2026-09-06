@@ -45,6 +45,8 @@ function openShop(){
     if(choice==="1" && money>=50){money-=50;seed+=10}
     if(choice==="2" && money>=100){money-=100;seed+=25}
     setTimeout(()=>{shopCooldown=false},10000);
+  }
+}
 function update(){
  let sp=3;
  if(keys.w||keys.arrowup)tractor.y-=sp;
