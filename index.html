@@ -89,18 +89,45 @@ function draw(){
    if(f.state==1){x.fillStyle="#6fb63d";x.font="30px Arial";x.fillText("🌱",f.x-16,f.y+12)}
    if(f.state==2){x.fillStyle="#4d9634";x.font="34px Arial";x.fillText("🌿",f.x-18,f.y+13)}
    if(f.state==3){x.fillStyle="#e3bd38";x.font="35px Arial";x.fillText("🌾",f.x-18,f.y+13)}
- });// combine
+// combine
 x.save();
 x.translate(combine.x,combine.y);
-x.fillStyle="#f2c400";
-x.fillRect(-28,-18,56,36);
-x.fillStyle="#555";
-x.fillRect(-5,-32,28,18);
-x.fillStyle="#111";
-x.beginPath();x.arc(-20,20,12,0,7);x.fill();
-x.beginPath();x.arc(20,20,12,0,7);x.fill();
+
+// main body
+x.fillStyle="#e8c21a";
+x.fillRect(-30,-18,60,36);
+
+// darker lower body
+x.fillStyle="#b89412";
+x.fillRect(-30,5,60,13);
+
+// cab
+x.fillStyle="#333";
+x.fillRect(-2,-35,27,18);
+x.fillStyle="#9ed4e8";
+x.fillRect(2,-32,20,12);
+
+// wheels
+x.fillStyle="#181818";
+x.beginPath();x.arc(-20,20,12,0,Math.PI*2);x.fill();
+x.beginPath();x.arc(20,20,12,0,Math.PI*2);x.fill();
+
+// wheel hubs
 x.fillStyle="#777";
-x.fillRect(-38,-8,12,16);
+x.beginPath();x.arc(-20,20,5,0,Math.PI*2);x.fill();
+x.beginPath();x.arc(20,20,5,0,Math.PI*2);x.fill();
+
+// front header
+x.fillStyle="#555";
+x.fillRect(-43,-9,13,18);
+x.fillStyle="#222";
+x.fillRect(-47,-5,5,10);
+
+// header teeth
+for(let i=0;i<4;i++){
+ x.fillRect(-48+i*4,9,2,7);
+}
+
 x.restore();
  // tractor
  x.save();x.translate(tractor.x,tractor.y);
